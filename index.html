@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI健身助手</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50">
+    <!-- iPhone 15 容器 -->
+    <div class="max-w-[393px] h-[852px] mx-auto bg-white shadow-xl rounded-[40px] relative overflow-hidden">
+        <!-- 刘海屏 -->
+        <div class="w-[120px] h-[35px] bg-black absolute top-0 left-1/2 -translate-x-1/2 rounded-b-[18px]"></div>
+        
+        <!-- 状态栏 -->
+        <div class="h-[44px] px-4 flex justify-between items-center text-sm">
+            <span>9:41</span>
+            <div class="flex gap-2">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="h-[44px] bg-black text-white flex items-center px-4 text-lg font-semibold">
+            AI健身助手
+        </div>
+
+        <!-- 主内容区域 -->
+        <div class="h-[calc(100%-88px)] overflow-y-auto">
+            <!-- 启动页 -->
+            <div id="splash-screen" class="h-full flex flex-col justify-center items-center bg-black text-white animate__animated animate__fadeIn">
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold mb-2">AI健身助手</h1>
+                    <p class="text-gray-400">科学减重 · 健康生活</p>
+                </div>
+            </div>
+
+            <!-- 信息采集页 -->
+            <div id="info-collection" class="hidden p-4">
+                <h2 class="text-2xl text-center mb-8">开启健康生活</h2>
+                
+                <!-- 基本信息卡片 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">基本信息</h3>
+                    <div class="space-y-4">
+                        <!-- 性别选择 -->
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">性别</label>
+                            <div class="flex gap-2">
+                                <button class="flex-1 py-2 px-4 rounded-lg bg-black text-white gender-btn">女</button>
+                                <button class="flex-1 py-2 px-4 rounded-lg border border-black text-black gender-btn">男</button>
+                            </div>
+                        </div>
+
+                        <!-- 年龄输入 -->
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">年龄</label>
+                            <input type="number" class="w-full py-2 px-4 rounded-lg border border-gray-300" placeholder="请输入年龄">
+                        </div>
+
+                        <!-- 身高输入 -->
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">身高 (cm)</label>
+                            <input type="number" class="w-full py-2 px-4 rounded-lg border border-gray-300" placeholder="请输入身高">
+                        </div>
+
+                        <!-- 体重输入 -->
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">体重 (kg)</label>
+                            <input type="number" class="w-full py-2 px-4 rounded-lg border border-gray-300" placeholder="请输入体重">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 健康状况卡片 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">健康状况</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-4 py-2 bg-gray-100 rounded-full text-gray-600 health-tag">高血压</span>
+                        <span class="px-4 py-2 bg-gray-100 rounded-full text-gray-600 health-tag">心脏病</span>
+                        <span class="px-4 py-2 bg-gray-100 rounded-full text-gray-600 health-tag">关节问题</span>
+                        <span class="px-4 py-2 bg-gray-100 rounded-full text-gray-600 health-tag">无</span>
+                    </div>
+                </div>
+
+                <!-- 目标设定卡片 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">目标设定</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">目标体重 (kg)</label>
+                            <input type="number" class="w-full py-2 px-4 rounded-lg border border-gray-300" placeholder="请输入目标体重">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-2">期望周期</label>
+                            <select class="w-full py-2 px-4 rounded-lg border border-gray-300">
+                                <option>1个月</option>
+                                <option>2个月</option>
+                                <option selected>3个月</option>
+                                <option>6个月</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 开始按钮 -->
+                <button class="w-full py-3 bg-black text-white rounded-lg font-semibold start-button">
+                    开始我的减重计划
+                </button>
+            </div>
+
+            <!-- 数据追踪页面 -->
+            <div id="data-tracking" class="hidden p-4">
+                <!-- 目标进度卡片 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4 animate__animated animate__fadeIn">
+                    <div class="text-center mb-4">
+                        <h2 class="text-2xl font-bold mb-1">目标减重10kg</h2>
+                        <p class="text-gray-600">已完成45% · 剩余42天</p>
+                    </div>
+                    
+                    <!-- 进度条 -->
+                    <div class="progress-bar mb-4">
+                        <div class="progress-bar-fill" style="width: 45%"></div>
+                    </div>
+                    
+                    <!-- 数据统计 -->
+                    <div class="flex justify-between">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">-4.5</div>
+                            <div class="text-sm text-gray-600">已减重(kg)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold">5.5</div>
+                            <div class="text-sm text-gray-600">待完成(kg)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 本周达标情况 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">本周目标达成</h3>
+                    
+                    <!-- 卡路里摄入 -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <div>
+                                <h4 class="font-medium">每日卡路里摄入</h4>
+                                <p class="text-sm text-gray-600">目标 1800kcal</p>
+                            </div>
+                            <span class="text-green-600">5/7天达标</span>
+                        </div>
+                        <div class="flex gap-1">
+                            <div class="flex-1 h-1.5 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-red-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-red-500 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- 运动计划 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <div>
+                                <h4 class="font-medium">运动计划完成</h4>
+                                <p class="text-sm text-gray-600">目标 4次/周</p>
+                            </div>
+                            <span class="text-green-600">已完成3次</span>
+                        </div>
+                        <div class="flex gap-1">
+                            <div class="flex-1 h-1.5 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-green-500 rounded-full"></div>
+                            <div class="flex-1 h-1.5 bg-gray-200 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 关键指标变化 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">关键指标变化</h3>
+                        <span class="text-sm text-gray-600">近30天</span>
+                    </div>
+                    
+                    <!-- 图表占位 -->
+                    <div class="h-40 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-gray-400">体重/体脂/腰围变化趋势</span>
+                    </div>
+                    
+                    <!-- 指标数据 -->
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="text-sm text-gray-600">当前体重</div>
+                            <div class="text-lg font-semibold">65.5 kg</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-600">体脂率</div>
+                            <div class="text-lg font-semibold">24.8%</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-600">基础代谢</div>
+                            <div class="text-lg font-semibold">1560 kcal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI建议卡片 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4">本周数据分析</h3>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-lightbulb text-yellow-500 text-xl mr-2"></i>
+                            <p class="text-green-600 font-medium">减重进度符合预期</p>
+                        </div>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                本周体重下降0.5kg，符合健康减重速度
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
+                                运动频率可以适当提升
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                建议增加蛋白质摄入，保护肌肉流失
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 饮食管理页面 -->
+            <div id="diet-management" class="hidden p-4">
+                <!-- 今日摄入概览 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">今日摄入</h3>
+                        <span class="text-gray-600">1280/1800 kcal</span>
+                    </div>
+                    
+                    <!-- 进度条 -->
+                    <div class="progress-bar mb-4">
+                        <div class="progress-bar-fill" style="width: 71%"></div>
+                    </div>
+                    
+                    <!-- 营养素进度 -->
+                    <div class="flex justify-between bg-gray-50 rounded-lg p-4">
+                        <div class="text-center">
+                            <div class="text-base font-medium">蛋白质</div>
+                            <div class="text-red-500">65/90g</div>
+                            <div class="text-xs text-gray-600">不足</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-base font-medium">碳水</div>
+                            <div class="text-green-600">150/200g</div>
+                            <div class="text-xs text-gray-600">达标</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-base font-medium">脂肪</div>
+                            <div class="text-green-600">40/60g</div>
+                            <div class="text-xs text-gray-600">达标</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 本周摄入分析 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">本周摄入分析</h3>
+                    <div class="h-32 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-gray-400">卡路里摄入趋势图</span>
+                    </div>
+                    <div class="flex justify-between pt-4 border-t">
+                        <div>
+                            <div class="text-sm text-gray-600">周平均摄入</div>
+                            <div class="text-green-600 font-medium">1750 kcal</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-600">达标天数</div>
+                            <div class="text-green-600 font-medium">5/7天</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 今日用餐记录 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">今日用餐</h3>
+                        <button class="px-4 py-2 bg-black text-white rounded-lg text-sm">
+                            + 记录
+                        </button>
+                    </div>
+                    
+                    <!-- 早餐 -->
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">早餐</h4>
+                            <span class="text-green-600">✓ 达标</span>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gray-200 rounded-lg mr-3"></div>
+                                <div>
+                                    <div class="font-medium">全麦面包</div>
+                                    <div class="text-sm text-gray-600">320 kcal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 午餐 -->
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">午餐</h4>
+                            <span class="text-red-500">⚠️ 超标</span>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gray-200 rounded-lg mr-3"></div>
+                                <div>
+                                    <div class="font-medium">炒面</div>
+                                    <div class="text-sm text-gray-600">580 kcal</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI营养建议 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">AI营养建议</h3>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="mb-4">
+                            <h4 class="font-medium mb-2">今日建议</h4>
+                            <ul class="text-gray-600 space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
+                                    午餐碳水摄入超标，建议晚餐选择低碳水食物
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
+                                    蛋白质摄入不足，建议晚餐补充瘦肉或鱼类
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-500 mr-2"></i>
+                                    建议晚餐摄入不超过500kcal
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="pt-4 border-t">
+                            <h4 class="font-medium mb-2">本周改善建议</h4>
+                            <ul class="text-gray-600 space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
+                                    午餐频繁超标，建议准备健康便当
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>
+                                    早餐蛋白质摄入不足，可以增加鸡蛋或酸奶
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-500 mr-2"></i>
+                                    建议增加膳食纤维的摄入
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 晚餐推荐 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4">晚餐推荐</h3>
+                    <div class="flex gap-3 overflow-x-auto pb-2">
+                        <!-- 推荐餐食卡片 -->
+                        <div class="flex-none w-40 bg-gray-50 rounded-lg p-3">
+                            <div class="w-full h-24 bg-gray-200 rounded-lg mb-2"></div>
+                            <h4 class="font-medium">鸡胸肉沙拉</h4>
+                            <p class="text-sm text-gray-600">350 kcal</p>
+                            <p class="text-sm text-green-600">高蛋白低碳水</p>
+                        </div>
+                        
+                        <div class="flex-none w-40 bg-gray-50 rounded-lg p-3">
+                            <div class="w-full h-24 bg-gray-200 rounded-lg mb-2"></div>
+                            <h4 class="font-medium">三文鱼配西兰花</h4>
+                            <p class="text-sm text-gray-600">420 kcal</p>
+                            <p class="text-sm text-green-600">优质蛋白</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 运动训练页面 -->
+            <div id="exercise-training" class="hidden p-4">
+                <!-- 今日训练建议 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">今日训练建议</h3>
+                        <span class="text-gray-600">中等强度</span>
+                    </div>
+                    
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex justify-between">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600">45</div>
+                                <div class="text-sm text-gray-600">建议时长(分)</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600">120-140</div>
+                                <div class="text-sm text-gray-600">目标心率(BPM)</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-green-600">280</div>
+                                <div class="text-sm text-gray-600">目标消耗(kcal)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 个性化训练计划 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">个性化训练计划</h3>
+                    
+                    <!-- 减脂计划 -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <h4 class="font-medium">减脂训练</h4>
+                                <p class="text-sm text-gray-600">适合：想要快速燃脂的用户</p>
+                            </div>
+                            <span class="text-green-600">查看 ></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">HIIT</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">有氧训练</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">力量训练</span>
+                        </div>
+                    </div>
+
+                    <!-- 塑形计划 -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <h4 class="font-medium">塑形训练</h4>
+                                <p class="text-sm text-gray-600">适合：想要改善体态的用户</p>
+                            </div>
+                            <span class="text-green-600">查看 ></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">核心训练</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">瑜伽</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">普拉提</span>
+                        </div>
+                    </div>
+
+                    <!-- 康复计划 -->
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <h4 class="font-medium">康复训练</h4>
+                                <p class="text-sm text-gray-600">适合：亚健康或康复期用户</p>
+                            </div>
+                            <span class="text-green-600">查看 ></span>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">拉伸</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">走路</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">轻度运动</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 训练项目详解 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">训练项目详解</h3>
+                    <div class="flex gap-3 overflow-x-auto pb-2">
+                        <!-- HIIT训练卡片 -->
+                        <div class="flex-none w-64 bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-medium mb-3">HIIT训练</h4>
+                            <div class="mb-3">
+                                <p class="text-sm text-green-600 font-medium mb-2">主要效果</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>快速燃烧脂肪</li>
+                                    <li>提高代谢水平</li>
+                                    <li>增强心肺功能</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-sm text-red-500 font-medium mb-1">注意事项</p>
+                                <p class="text-sm text-gray-600">不建议心脏病患者进行</p>
+                            </div>
+                        </div>
+
+                        <!-- 瑜伽训练卡片 -->
+                        <div class="flex-none w-64 bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-medium mb-3">瑜伽训练</h4>
+                            <div class="mb-3">
+                                <p class="text-sm text-green-600 font-medium mb-2">主要效果</p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>改善体态</li>
+                                    <li>增加柔韧性</li>
+                                    <li>缓解压力</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="text-sm text-green-600 font-medium">适合所有人群</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 健康监测 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4">健康监测</h3>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-heart text-red-500 text-xl mr-2"></i>
+                            <p class="font-medium">心率监测已开启</p>
+                        </div>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                                如果心率超过150BPM，将自动提醒
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>
+                                运动时出现不适请立即停止
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 个人中心页面 -->
+            <div id="profile" class="hidden p-4">
+                <!-- 用户信息卡片 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <div class="flex items-center mb-6">
+                        <div class="w-20 h-20 bg-gray-200 rounded-full mr-4"></div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-1">张三</h3>
+                            <p class="text-gray-600">减重进行中 · 第28天</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-around text-center">
+                        <div>
+                            <div class="text-xl font-bold">28</div>
+                            <div class="text-sm text-gray-600">打卡天数</div>
+                        </div>
+                        <div>
+                            <div class="text-xl font-bold text-green-600">-4.5</div>
+                            <div class="text-sm text-gray-600">减重(kg)</div>
+                        </div>
+                        <div>
+                            <div class="text-xl font-bold">89%</div>
+                            <div class="text-sm text-gray-600">达标率</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 身材对比 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">身材对比</h3>
+                        <span class="text-gray-600 text-sm">查看全部 ></span>
+                    </div>
+                    
+                    <div class="flex gap-3 mb-4">
+                        <div class="flex-1 text-center">
+                            <div class="w-full h-40 bg-gray-200 rounded-lg flex items-center justify-center mb-2">
+                                <span class="text-gray-600">Day 1</span>
+                            </div>
+                            <div class="text-sm text-gray-600">2024-02-20</div>
+                        </div>
+                        <div class="flex-1 text-center">
+                            <div class="w-full h-40 bg-gray-200 rounded-lg flex items-center justify-center mb-2">
+                                <span class="text-gray-600">Day 28</span>
+                            </div>
+                            <div class="text-sm text-gray-600">今天</div>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full py-2 border border-black rounded-lg text-black">
+                        + 记录今日照片
+                    </button>
+                </div>
+
+                <!-- 目标设置 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">目标设置</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center py-2 border-b">
+                            <span>目标体重</span>
+                            <span class="text-gray-600">60kg ></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b">
+                            <span>每周目标</span>
+                            <span class="text-gray-600">-0.5kg ></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span>运动频率</span>
+                            <span class="text-gray-600">4次/周 ></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 系统设置 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <h3 class="text-lg font-semibold mb-4">系统设置</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center py-2 border-b">
+                            <span>消息通知</span>
+                            <span class="text-gray-600">已开启 ></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b">
+                            <span>隐私设置</span>
+                            <span class="text-gray-600">></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span>帮助与反馈</span>
+                            <span class="text-gray-600">></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部导航栏 -->
+        <div class="absolute bottom-0 left-0 right-0 h-[80px] bg-white border-t border-gray-200 flex justify-around items-center">
+            <div class="text-center text-green-600 nav-item" data-page="data-tracking">
+                <i class="fas fa-chart-line text-xl mb-1"></i>
+                <div class="text-xs">数据</div>
+            </div>
+            <div class="text-center text-gray-400 nav-item" data-page="diet-management">
+                <i class="fas fa-utensils text-xl mb-1"></i>
+                <div class="text-xs">饮食</div>
+            </div>
+            <div class="text-center text-gray-400 nav-item" data-page="exercise-training">
+                <i class="fas fa-running text-xl mb-1"></i>
+                <div class="text-xs">运动</div>
+            </div>
+            <div class="text-center text-gray-400 nav-item" data-page="profile">
+                <i class="fas fa-user text-xl mb-1"></i>
+                <div class="text-xs">我的</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自定义脚本 -->
+    <script src="js/main.js"></script>
+</body>
+</html> 

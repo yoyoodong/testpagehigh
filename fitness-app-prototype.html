@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI健身助手原型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fff;
+            color: #333;
+            padding: 40px;
+        }
+
+        /* 模块标题样式 */
+        .module-title {
+            font-size: 24px;
+            color: #333;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        /* iPhone 15 框架样式 */
+        .iphone-container {
+            width: 393px;
+            height: 852px;
+            background: white;
+            border-radius: 40px;
+            position: relative;
+            margin: 20px;
+            display: inline-block;
+            box-shadow: none;
+            overflow: hidden;
+            border: 2px solid #000;
+        }
+
+        .iphone-notch {
+            width: 120px;
+            height: 35px;
+            background: #000;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+        }
+
+        /* 页面内容区域 */
+        .screen-content {
+            padding: 50px 20px 80px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        /* 状态栏 */
+        .status-bar {
+            height: 44px;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* 导航栏 */
+        .nav-bar {
+            height: 44px;
+            background: #000;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .nav-item.active {
+            color: #4CAF50;
+        }
+
+        /* 数据卡片 */
+        .data-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        /* 展示区域容器 */
+        .prototype-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* 模块容器 */
+        .module-container {
+            margin-bottom: 60px;
+        }
+
+        .screens-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* 新增AI功能相关样式 */
+        .ai-camera-view {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .metric-chart {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .metric-chart::after {
+            content: "体重/体围变化趋势图";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-container">
+        <!-- 0. 启动页模块 -->
+        <div class="module-container">
+            <h2 class="module-title">0. 启动页模块</h2>
+            <div class="screens-row">
+                <!-- 0.1 品牌启动页 -->
+                <div class="iphone-container">
+                    <div class="screen-content" style="background: #000; margin: -50px -20px -80px; height: 852px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <div style="text-align: center; color: white;">
+                            <div style="font-size: 36px; font-weight: 600; margin-bottom: 10px;">AI健身助手</div>
+                            <div style="font-size: 16px; color: #888;">科学减重 · 健康生活</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 0.2 信息采集页 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">基础信息</div>
+
+                        <div style="padding: 20px 0;">
+                            <h2 style="text-align: center; margin-bottom: 30px;">开启健康生活</h2>
+                            
+                            <div class="data-card">
+                                <h3>基本信息</h3>
+                                <div style="margin: 15px 0;">
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display: block; margin-bottom: 5px;">性别</label>
+                                        <div style="display: flex; gap: 10px;">
+                                            <button class="btn" style="margin: 0; background: #000;">女</button>
+                                            <button class="btn" style="margin: 0; background: #fff; color: #000; border: 1px solid #000;">男</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display: block; margin-bottom: 5px;">年龄</label>
+                                        <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入年龄">
+                                    </div>
+
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display: block; margin-bottom: 5px;">身高 (cm)</label>
+                                        <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入身高">
+                                    </div>
+
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display: block; margin-bottom: 5px;">体重 (kg)</label>
+                                        <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入体重">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="data-card">
+                                <h3>健康状况</h3>
+                                <div style="margin: 15px 0;">
+                                    <p style="margin-bottom: 10px;">是否有以下情况：</p>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                        <span style="padding: 8px 15px; background: #f9f9f9; border-radius: 20px; color: #666;">高血压</span>
+                                        <span style="padding: 8px 15px; background: #f9f9f9; border-radius: 20px; color: #666;">心脏病</span>
+                                        <span style="padding: 8px 15px; background: #f9f9f9; border-radius: 20px; color: #666;">关节问题</span>
+                                        <span style="padding: 8px 15px; background: #f9f9f9; border-radius: 20px; color: #666;">无</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="data-card">
+                                <h3>目标设定</h3>
+                                <div style="margin: 15px 0;">
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display: block; margin-bottom: 5px;">目标体重 (kg)</label>
+                                        <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入目标体重">
+                                    </div>
+
+                                    <div style="margin-bottom: 15px;">
+                                        <label style="display: block; margin-bottom: 5px;">期望周期</label>
+                                        <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                            <option>1个月</option>
+                                            <option>2个月</option>
+                                            <option selected>3个月</option>
+                                            <option>6个月</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn">开始我的减重计划</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 0.3 AI分析页 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">AI健康分析</div>
+
+                        <div style="padding: 20px 0;">
+                            <div class="data-card" style="text-align: center; padding: 30px 15px;">
+                                <div style="width: 120px; height: 120px; margin: 0 auto 20px; border-radius: 60px; border: 2px solid #4CAF50; display: flex; align-items: center; justify-content: center;">
+                                    <div style="font-size: 24px;">分析中</div>
+                                </div>
+                                <p style="color: #666;">正在为您生成个性化健康方案</p>
+                            </div>
+
+                            <div class="data-card">
+                                <h3>身体状况评估</h3>
+                                <div style="margin: 15px 0;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                        <span>BMI指数</span>
+                                        <span>24.8（偏高）</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                        <span>基础代谢</span>
+                                        <span>1560 kcal</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <span>建议每日摄入</span>
+                                        <span>1800 kcal</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="data-card">
+                                <h3>减重建议</h3>
+                                <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 10px;">
+                                    <p style="margin-bottom: 10px;">根据您的情况，我们建议：</p>
+                                    <ul style="color: #666; margin-left: 20px;">
+                                        <li>每周减重0.5kg最为健康</li>
+                                        <li>建议每周运动4-5次</li>
+                                        <li>注意控制碳水摄入</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <button class="btn">进入主页</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. 数据相关页面组 -->
+        <div class="module-container">
+            <h2 class="module-title">1. 数据追踪模块</h2>
+            <div class="screens-row">
+                <!-- 1.0 主数据页 -->
+                <div class="iphone-container">
+                    <div class="iphone-notch"></div>
+                    <div class="screen-content">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>📊</span>
+                        </div>
+                        <div class="nav-bar">目标追踪</div>
+                        
+                        <!-- 目标进度卡片 -->
+                        <div class="data-card">
+                            <div style="text-align: center; padding: 20px 0;">
+                                <h2 style="font-size: 28px; margin-bottom: 5px;">目标减重10kg</h2>
+                                <p style="color: #666;">已完成45% · 剩余42天</p>
+                            </div>
+                            <div style="height: 8px; background: #eee; border-radius: 4px; margin: 15px 0;">
+                                <div style="width: 45%; height: 100%; background: #4CAF50; border-radius: 4px;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 24px; font-weight: 600; color: #4CAF50;">-4.5</div>
+                                    <div style="color: #666; font-size: 14px;">已减重(kg)</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 24px; font-weight: 600;">5.5</div>
+                                    <div style="color: #666; font-size: 14px;">待完成(kg)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 本周达标情况 -->
+                        <div class="data-card">
+                            <h3>本周目标达成</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                    <div>
+                                        <h4>每日卡路里摄入</h4>
+                                        <p style="color: #666;">目标 1800kcal</p>
+                                    </div>
+                                    <div style="color: #4CAF50;">5/7天达标</div>
+                                </div>
+                                <div style="display: flex; gap: 5px;">
+                                    <div style="flex: 1; height: 6px; background: #4CAF50; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #4CAF50; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #4CAF50; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #ff4444; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #4CAF50; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #4CAF50; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #ff4444; border-radius: 3px;"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin: 20px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                    <div>
+                                        <h4>运动计划完成</h4>
+                                        <p style="color: #666;">目标 4次/周</p>
+                                    </div>
+                                    <div style="color: #4CAF50;">已完成3次</div>
+                                </div>
+                                <div style="display: flex; gap: 5px;">
+                                    <div style="flex: 1; height: 6px; background: #4CAF50; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #4CAF50; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #4CAF50; border-radius: 3px;"></div>
+                                    <div style="flex: 1; height: 6px; background: #eee; border-radius: 3px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 关键指标变化 -->
+                        <div class="data-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h3>关键指标变化</h3>
+                                <span style="color: #666; font-size: 14px;">近30天</span>
+                            </div>
+                            <div class="metric-chart" style="height: 150px;">
+                                体重/体脂/腰围变化趋势
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                                <div>
+                                    <div style="color: #666; font-size: 12px;">当前体重</div>
+                                    <div style="font-size: 16px;">65.5 kg</div>
+                                </div>
+                                <div>
+                                    <div style="color: #666; font-size: 12px;">体脂率</div>
+                                    <div style="font-size: 16px;">24.8%</div>
+                                </div>
+                                <div>
+                                    <div style="color: #666; font-size: 12px;">基础代谢</div>
+                                    <div style="font-size: 16px;">1560 kcal</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI建议卡片 -->
+                        <div class="data-card">
+                            <h3>本周数据分析</h3>
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 10px;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="font-size: 18px; margin-right: 8px;">💡</span>
+                                    <p style="color: #4CAF50;">减重进度符合预期</p>
+                                </div>
+                                <ul style="color: #666; margin-left: 20px;">
+                                    <li>本周体重下降0.5kg，符合健康减重速度</li>
+                                    <li>运动频率可以适当提升</li>
+                                    <li>建议增加蛋白质摄入，保护肌肉流失</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item active">数据</div>
+                        <div class="nav-item">饮食</div>
+                        <div class="nav-item">运动</div>
+                        <div class="nav-item">我的</div>
+                    </div>
+                </div>
+
+                <!-- 1.1 身体数据详情页 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span style="font-size: 24px;">←</span>
+                            <span style="margin-left: 20px;">身体数据</span>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>数据记录</h3>
+                            <div style="margin: 15px 0;">
+                                <button class="btn" style="background: #fff; color: #000; border: 1px solid #000;">
+                                    记录今日数据
+                                </button>
+                            </div>
+                            
+                            <div class="metric-chart" style="height: 200px;">
+                                详细趋势图表
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>历史记录</h3>
+                            <div style="margin: 10px 0;">
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                    <span>2024-03-20</span>
+                                    <span>体重: 65.5kg</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                    <span>2024-03-19</span>
+                                    <span>体重: 65.8kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.2 数据录入弹窗 -->
+                <div class="iphone-container">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 80%; background: white; border-radius: 15px; padding: 20px;">
+                            <h3 style="margin-bottom: 20px;">记录身体数据</h3>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; margin-bottom: 5px;">体重 (kg)</label>
+                                <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入体重">
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; margin-bottom: 5px;">体脂率 (%)</label>
+                                <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入体脂率">
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; margin-bottom: 5px;">腰围 (cm)</label>
+                                <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入腰围">
+                            </div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn" style="background: #fff; color: #000; border: 1px solid #000;">取消</button>
+                                <button class="btn">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.3 指标详情页面 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span style="font-size: 24px;">←</span>
+                            <span style="margin-left: 20px;">指标详情</span>
+                        </div>
+
+                        <div class="data-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3>体重变化</h3>
+                                <select style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                                    <option>近7天</option>
+                                    <option selected>近30天</option>
+                                    <option>近90天</option>
+                                </select>
+                            </div>
+                            <div class="metric-chart" style="height: 200px;">
+                                详细体重变化趋势
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span>起始体重</span>
+                                    <span>70.0kg</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span>当前体重</span>
+                                    <span>65.5kg</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>平均每周变化</span>
+                                    <span style="color: #4CAF50;">-0.5kg</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>数据分析</h3>
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 10px;">
+                                <p style="margin-bottom: 10px;">减重表现：优秀</p>
+                                <ul style="color: #666; margin-left: 20px;">
+                                    <li>体重下降速度健康稳定</li>
+                                    <li>未出现明显反弹</li>
+                                    <li>平台期处理得当</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 饮食相关页面组 -->
+        <div class="module-container">
+            <h2 class="module-title">2. 饮食管理模块</h2>
+            <div class="screens-row">
+                <!-- 2.0 主饮食页 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span>饮食管理</span>
+                        </div>
+
+                        <!-- 今日概览 -->
+                        <div class="data-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3>今日摄入</h3>
+                                <span style="color: #666;">1280/1800 kcal</span>
+                            </div>
+                            <div style="height: 8px; background: #eee; border-radius: 4px; margin: 10px 0;">
+                                <div style="width: 71%; height: 100%; background: #4CAF50; border-radius: 4px;"></div>
+                            </div>
+                            
+                            <!-- 营养素进度 -->
+                            <div style="display: flex; justify-content: space-between; margin: 15px 0; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px;">蛋白质</div>
+                                    <div style="color: #ff4444;">65/90g</div>
+                                    <small style="color: #666;">不足</small>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px;">碳水</div>
+                                    <div style="color: #4CAF50;">150/200g</div>
+                                    <small style="color: #666;">达标</small>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px;">脂肪</div>
+                                    <div style="color: #4CAF50;">40/60g</div>
+                                    <small style="color: #666;">达标</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 一周数据分析 -->
+                        <div class="data-card">
+                            <h3>本周摄入分析</h3>
+                            <div class="metric-chart" style="height: 120px;">
+                                卡路里摄入趋势图
+                            </div>
+                            <div style="margin: 15px 0; padding-top: 15px; border-top: 1px solid #eee;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span>周平均摄入</span>
+                                    <span style="color: #4CAF50;">1750 kcal</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span>达标天数</span>
+                                    <span style="color: #4CAF50;">5/7天</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 今日用餐记录 -->
+                        <div class="data-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h3>今日用餐</h3>
+                                <button class="btn" style="width: auto; padding: 8px 15px; font-size: 14px;">
+                                    + 记录
+                                </button>
+                            </div>
+                            
+                            <!-- 早餐 -->
+                            <div style="margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <h4>早餐</h4>
+                                    <span style="color: #4CAF50;">✓ 达标</span>
+                                </div>
+                                <div style="background: #f9f9f9; padding: 10px; border-radius: 8px;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                        <div style="width: 40px; height: 40px; background: #eee; border-radius: 8px; margin-right: 10px;"></div>
+                                        <div>
+                                            <div>全麦面包</div>
+                                            <small style="color: #666;">320 kcal</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 午餐 -->
+                            <div style="margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <h4>午餐</h4>
+                                    <span style="color: #ff4444;">⚠️ 超标</span>
+                                </div>
+                                <div style="background: #f9f9f9; padding: 10px; border-radius: 8px;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                        <div style="width: 40px; height: 40px; background: #eee; border-radius: 8px; margin-right: 10px;"></div>
+                                        <div>
+                                            <div>炒面</div>
+                                            <small style="color: #666;">580 kcal</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI建议卡片 -->
+                        <div class="data-card">
+                            <h3>AI营养建议</h3>
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 10px;">
+                                <div style="margin-bottom: 15px;">
+                                    <h4 style="color: #333; margin-bottom: 8px;">今日建议</h4>
+                                    <ul style="color: #666; margin-left: 20px;">
+                                        <li>午餐碳水摄入超标，建议晚餐选择低碳水食物</li>
+                                        <li>蛋白质摄入不足，建议晚餐补充瘦肉或鱼类</li>
+                                        <li>建议晚餐摄入不超过500kcal</li>
+                                    </ul>
+                                </div>
+                                
+                                <div style="padding-top: 15px; border-top: 1px solid #eee;">
+                                    <h4 style="color: #333; margin-bottom: 8px;">本周改善建议</h4>
+                                    <ul style="color: #666; margin-left: 20px;">
+                                        <li>午餐频繁超标，建议准备健康便当</li>
+                                        <li>早餐蛋白质摄入不足，可以增加鸡蛋或酸奶</li>
+                                        <li>建议增加膳食纤维的摄入</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 推荐餐食 -->
+                        <div class="data-card">
+                            <h3>晚餐推荐</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="display: flex; gap: 10px; overflow-x: auto; padding: 5px;">
+                                    <div style="min-width: 150px; background: #f9f9f9; padding: 10px; border-radius: 8px;">
+                                        <div style="width: 130px; height: 100px; background: #eee; border-radius: 8px; margin-bottom: 10px;"></div>
+                                        <h4>鸡胸肉沙拉</h4>
+                                        <p style="color: #666; font-size: 12px;">350 kcal</p>
+                                        <p style="color: #4CAF50; font-size: 12px;">高蛋白低碳水</p>
+                                    </div>
+                                    <div style="min-width: 150px; background: #f9f9f9; padding: 10px; border-radius: 8px;">
+                                        <div style="width: 130px; height: 100px; background: #eee; border-radius: 8px; margin-bottom: 10px;"></div>
+                                        <h4>三文鱼配西兰花</h4>
+                                        <p style="color: #666; font-size: 12px;">420 kcal</p>
+                                        <p style="color: #4CAF50; font-size: 12px;">优质蛋白</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">数据</div>
+                        <div class="nav-item active">饮食</div>
+                        <div class="nav-item">运动</div>
+                        <div class="nav-item">我的</div>
+                    </div>
+                </div>
+
+                <!-- 2.1 AI食物识别结果 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span style="font-size: 24px;">←</span>
+                            <span style="margin-left: 20px;">识别结果</span>
+                        </div>
+
+                        <div class="data-card">
+                            <div style="text-align: center; margin-bottom: 15px;">
+                                <div class="ai-camera-view" style="height: 150px;">
+                                    已拍摄的食物图片
+                                </div>
+                                <p style="color: #666;">AI识别准确率: 98%</p>
+                            </div>
+                            
+                            <h3>识别结果：鸡胸肉沙拉</h3>
+                            <div style="margin: 15px 0;">
+                                <p>总热量：320 kcal</p>
+                                <div style="margin: 10px 0;">
+                                    <p>• 鸡胸肉 150g (165 kcal)</p>
+                                    <p>• 蔬菜 100g (35 kcal)</p>
+                                    <p>• 酱料 30g (120 kcal)</p>
+                                </div>
+                            </div>
+
+                            <!-- 新增食用建议部分 -->
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin: 15px 0;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="font-size: 18px; margin-right: 8px;">✅</span>
+                                    <h4>建议食用</h4>
+                                </div>
+                                <p style="color: #666; font-size: 14px;">符合您的减重目标，建议：</p>
+                                <ul style="color: #666; font-size: 14px; margin: 8px 0 0 20px;">
+                                    <li>可以适当减少酱料用量（-50kcal）</li>
+                                    <li>建议搭配一杯无糖饮品</li>
+                                    <li>适合作为午餐主餐</li>
+                                </ul>
+                                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
+                                    <p style="color: #4CAF50; font-size: 14px;">✓ 高蛋白低脂，符合健康饮食原则</p>
+                                </div>
+                            </div>
+
+                            <button class="btn">添加到今日记录</button>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>营养成分</h3>
+                            <div style="margin: 10px 0;">
+                                <p>蛋白质: 28g</p>
+                                <p>碳水化合物: 12g</p>
+                                <p>脂肪: 18g</p>
+                                <p>膳食纤维: 5g</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2.2 饮食记录详情 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span style="font-size: 24px;">←</span>
+                            <span style="margin-left: 20px;">今日饮食记录</span>
+                        </div>
+
+                        <div class="data-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3>营养摄入进度</h3>
+                                <span style="color: #666;">1280/1800 kcal</span>
+                            </div>
+                            <div style="height: 8px; background: #eee; border-radius: 4px; margin: 10px 0;">
+                                <div style="width: 70%; height: 100%; background: #000; border-radius: 4px;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                <div>
+                                    <small style="color: #666;">蛋白质</small>
+                                    <div>65/90g</div>
+                                </div>
+                                <div>
+                                    <small style="color: #666;">碳水</small>
+                                    <div>150/200g</div>
+                                </div>
+                                <div>
+                                    <small style="color: #666;">脂肪</small>
+                                    <div>40/60g</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>餐食记录</h3>
+                            <div style="margin: 15px 0;">
+                                <h4 style="margin-bottom: 10px;">早餐</h4>
+                                <div style="display: flex; align-items: center; padding: 10px; background: #f9f9f9; border-radius: 8px; margin-bottom: 10px;">
+                                    <div style="width: 60px; height: 60px; background: #eee; border-radius: 8px; margin-right: 10px;"></div>
+                                    <div style="flex: 1;">
+                                        <h4>全麦面包</h4>
+                                        <p style="color: #666;">150 kcal · 蛋白质 8g</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn" style="background: #fff; color: #000; border: 1px solid #000;">
+                                + 添加食物
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2.3 食物搜索页面 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span style="font-size: 24px;">←</span>
+                            <span style="margin-left: 20px;">添加食物</span>
+                        </div>
+
+                        <div style="padding: 15px;">
+                            <div style="position: relative; margin-bottom: 20px;">
+                                <input type="search" placeholder="搜索食物" 
+                                    style="width: 100%; padding: 12px 40px 12px 12px; border-radius: 8px; border: 1px solid #ddd;">
+                                <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);">🔍</span>
+                            </div>
+
+                            <div class="data-card">
+                                <h3>快速添加</h3>
+                                <div style="margin-top: 10px;">
+                                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                        <button class="btn" style="margin: 0; background: #f9f9f9; color: #333;">拍照识别</button>
+                                        <button class="btn" style="margin: 0; background: #f9f9f9; color: #333;">扫码添加</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="data-card">
+                                <h3>最近添加</h3>
+                                <div style="margin-top: 10px;">
+                                    <div style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span>鸡胸肉沙拉</span>
+                                            <span style="color: #666;">320kcal</span>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span>全麦面包</span>
+                                            <span style="color: #666;">150kcal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="data-card">
+                                <h3>常见食物</h3>
+                                <div style="margin-top: 10px;">
+                                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                        <span style="padding: 8px 15px; background: #f9f9f9; border-radius: 20px; color: #666;">🍚 米饭</span>
+                                        <span style="padding: 8px 15px; background: #f9f9f9; border-radius: 20px; color: #666;">🥚 鸡蛋</span>
+                                        <span style="padding: 8px 15px; background: #f9f9f9; border-radius: 20px; color: #666;">🥗 沙拉</span>
+                                        <span style="padding: 8px 15px; background: #f9f9f9; border-radius: 20px; color: #666;">🥛 牛奶</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 运动相关页面组 -->
+        <div class="module-container">
+            <h2 class="module-title">3. 运动训练模块</h2>
+            <div class="screens-row">
+                <!-- 3.0 主运动页 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">智能训练</div>
+
+                        <!-- 今日训练状态 -->
+                        <div class="data-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3>今日训练建议</h3>
+                                <span style="color: #666;">中等强度</span>
+                            </div>
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 10px;">
+                                <div style="display: flex; gap: 15px;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 24px; color: #4CAF50;">45</div>
+                                        <div style="color: #666; font-size: 12px;">建议时长(分)</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 24px; color: #4CAF50;">120-140</div>
+                                        <div style="color: #666; font-size: 12px;">目标心率(BPM)</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 24px; color: #4CAF50;">280</div>
+                                        <div style="color: #666; font-size: 12px;">目标消耗(kcal)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 训练计划分类 -->
+                        <div class="data-card">
+                            <h3>个性化训练计划</h3>
+                            <div style="margin: 15px 0;">
+                                <!-- 减脂计划 -->
+                                <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                        <div>
+                                            <h4>减脂训练</h4>
+                                            <p style="color: #666; font-size: 12px;">适合：想要快速燃脂的用户</p>
+                                        </div>
+                                        <span style="color: #4CAF50;">查看 ></span>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; font-size: 12px;">
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">HIIT</span>
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">有氧训练</span>
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">力量训练</span>
+                                    </div>
+                                </div>
+
+                                <!-- 塑形计划 -->
+                                <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                        <div>
+                                            <h4>塑形训练</h4>
+                                            <p style="color: #666; font-size: 12px;">适合：想要改善体态的用户</p>
+                                        </div>
+                                        <span style="color: #4CAF50;">查看 ></span>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; font-size: 12px;">
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">核心训练</span>
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">瑜伽</span>
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">普拉提</span>
+                                    </div>
+                                </div>
+
+                                <!-- 康复计划 -->
+                                <div style="background: #f9f9f9; border-radius: 8px; padding: 15px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                        <div>
+                                            <h4>康复训练</h4>
+                                            <p style="color: #666; font-size: 12px;">适合：亚健康或康复期用户</p>
+                                        </div>
+                                        <span style="color: #4CAF50;">查看 ></span>
+                                    </div>
+                                    <div style="display: flex; gap: 10px; font-size: 12px;">
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">拉伸</span>
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">走路</span>
+                                        <span style="background: #e8f5e9; color: #4CAF50; padding: 4px 8px; border-radius: 4px;">轻度运动</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 训练项目详解 -->
+                        <div class="data-card">
+                            <h3>训练项目详解</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="display: flex; gap: 10px; overflow-x: auto; padding: 5px;">
+                                    <!-- HIIT训练卡片 -->
+                                    <div style="min-width: 200px; background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                                        <h4>HIIT训练</h4>
+                                        <div style="margin: 10px 0;">
+                                            <p style="color: #4CAF50; font-size: 12px; margin-bottom: 5px;">主要效果</p>
+                                            <ul style="color: #666; font-size: 12px; margin-left: 15px;">
+                                                <li>快速燃烧脂肪</li>
+                                                <li>提高代谢水平</li>
+                                                <li>增强心肺功能</li>
+                                            </ul>
+                                        </div>
+                                        <div style="margin: 10px 0;">
+                                            <p style="color: #ff4444; font-size: 12px;">注意事项</p>
+                                            <p style="color: #666; font-size: 12px;">不建议心脏病患者进行</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- 瑜伽训练卡片 -->
+                                    <div style="min-width: 200px; background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                                        <h4>瑜伽训练</h4>
+                                        <div style="margin: 10px 0;">
+                                            <p style="color: #4CAF50; font-size: 12px; margin-bottom: 5px;">主要效果</p>
+                                            <ul style="color: #666; font-size: 12px; margin-left: 15px;">
+                                                <li>改善体态</li>
+                                                <li>增加柔韧性</li>
+                                                <li>缓解压力</li>
+                                            </ul>
+                                        </div>
+                                        <div style="margin: 10px 0;">
+                                            <p style="color: #4CAF50; font-size: 12px;">适合所有人群</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 健康监测提示 -->
+                        <div class="data-card">
+                            <h3>健康监测</h3>
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 10px;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="font-size: 18px; margin-right: 8px;">❤️</span>
+                                    <p>心率监测已开启</p>
+                                </div>
+                                <ul style="color: #666; font-size: 14px; margin-left: 20px;">
+                                    <li>如果心率超过150BPM，将自动提醒</li>
+                                    <li>运动时出现不适请立即停止</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">数据</div>
+                        <div class="nav-item">饮食</div>
+                        <div class="nav-item active">运动</div>
+                        <div class="nav-item">我的</div>
+                    </div>
+                </div>
+
+                <!-- 3.1 AI动作纠正 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">AI动作纠正</div>
+
+                        <div class="data-card">
+                            <div class="ai-camera-view" style="height: 400px;">
+                                实时动作识别画面
+                                <div style="position: absolute; bottom: 20px; left: 20px; color: #ff4444;">
+                                    ⚠️ 膝盖外扩
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>动作分析</h3>
+                            <div style="margin: 10px 0;">
+                                <p>当前动作：深蹲</p>
+                                <p>完成次数：8/12</p>
+                                <p style="color: #ff4444;">需要调整：</p>
+                                <ul style="margin: 5px 0 0 20px;">
+                                    <li>膝盖保持与脚尖同向</li>
+                                    <li>下蹲深度可以增加</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>实时数据</h3>
+                            <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 24px;">125</div>
+                                    <div>心率</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 24px;">168</div>
+                                    <div>卡路里</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 24px;">15:30</div>
+                                    <div>时长</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3.2 训练计划详情 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span style="font-size: 24px;">←</span>
+                            <span style="margin-left: 20px;">HIIT训练计划</span>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>训练概览</h3>
+                            <div style="margin: 10px 0;">
+                                <p>训练时长: 45分钟</p>
+                                <p>难度等级: 中等</p>
+                                <p>预计消耗: 350kcal</p>
+                                <div class="metric-chart" style="height: 100px;">
+                                    心率区间目标图
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>动作清单</h3>
+                            <div style="margin: 10px 0;">
+                                <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                    <div style="width: 50px; height: 50px; background: #f5f5f5; border-radius: 8px; margin-right: 10px;">动图</div>
+                                    <div style="flex: 1;">
+                                        <h4>高抬腿</h4>
+                                        <p style="color: #666;">30秒 x 3组</p>
+                                    </div>
+                                    <span style="color: #666;">▶</span>
+                                </div>
+                                <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                    <div style="width: 50px; height: 50px; background: #f5f5f5; border-radius: 8px; margin-right: 10px;">动图</div>
+                                    <div style="flex: 1;">
+                                        <h4>波比跳</h4>
+                                        <p style="color: #666;">45秒 x 3组</p>
+                                    </div>
+                                    <span style="color: #666;">▶</span>
+                                </div>
+                            </div>
+                            <button class="btn">开始训练</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3.3 训练完成总结页 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">训练总结</div>
+
+                        <div class="data-card" style="text-align: center; padding: 30px 15px;">
+                            <div style="font-size: 24px; margin-bottom: 10px;">🎉 训练完成</div>
+                            <div style="font-size: 36px; font-weight: 600; color: #4CAF50;">45:00</div>
+                            <p style="color: #666;">训练时长</p>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>训练数据</h3>
+                            <div style="display: flex; justify-content: space-around; margin: 20px 0;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 24px;">386</div>
+                                    <div style="color: #666;">消耗(kcal)</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 24px;">138</div>
+                                    <div style="color: #666;">平均心率</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 24px;">12</div>
+                                    <div style="color: #666;">动作组数</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>训练评估</h3>
+                            <div style="background: #f9f9f9; border-radius: 8px; padding: 15px; margin-top: 10px;">
+                                <p style="color: #4CAF50; margin-bottom: 10px;">✓ 训练表现优秀</p>
+                                <ul style="color: #666; margin-left: 20px;">
+                                    <li>动作完成度：95%</li>
+                                    <li>心率控制合理</li>
+                                    <li>训练强度适中</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <button class="btn">分享战绩</button>
+                        <button class="btn" style="background: #fff; color: #000; border: 1px solid #000;">返回首页</button>
+                    </div>
+                </div>
+
+                <!-- 3.4 动作教学详情页 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span style="font-size: 24px;">←</span>
+                            <span style="margin-left: 20px;">深蹲教学</span>
+                        </div>
+
+                        <div class="data-card">
+                            <div style="width: 100%; height: 200px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                动作示范视频
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>动作要领</h3>
+                            <div style="margin: 15px 0;">
+                                <ol style="margin-left: 20px; color: #666;">
+                                    <li>双脚与肩同宽</li>
+                                    <li>膝盖与脚尖同向</li>
+                                    <li>下蹲时臀部向后坐</li>
+                                    <li>保持核心收紧</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>常见错误</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <span style="color: #ff4444; margin-right: 10px;">⚠️</span>
+                                    <p>膝盖超过脚尖</p>
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    <span style="color: #ff4444; margin-right: 10px;">⚠️</span>
+                                    <p>背部弯曲</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 个人中心相关页面组 -->
+        <div class="module-container">
+            <h2 class="module-title">4. 个人中心模块</h2>
+            <div class="screens-row">
+                <!-- 4.0 个人中心主页 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">个人中心</div>
+
+                        <div class="data-card">
+                            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                <div style="width: 80px; height: 80px; background: #eee; border-radius: 40px; margin-right: 15px;"></div>
+                                <div>
+                                    <h3>张三</h3>
+                                    <p style="color: #666;">减重进行中 · 第28天</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-around; text-align: center;">
+                                <div>
+                                    <div style="font-size: 20px; font-weight: 600;">28</div>
+                                    <div style="color: #666;">打卡天数</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 20px; font-weight: 600;">-4.5</div>
+                                    <div style="color: #666;">减重(kg)</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 20px; font-weight: 600;">89%</div>
+                                    <div style="color: #666;">达标率</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h3>身材对比</h3>
+                                <span style="color: #666; font-size: 14px;">查看全部 ></span>
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                <div style="flex: 1; text-align: center;">
+                                    <div style="width: 100%; height: 150px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px;">
+                                        <span style="color: #666;">Day 1</span>
+                                    </div>
+                                    <small style="color: #666;">2024-02-20</small>
+                                </div>
+                                <div style="flex: 1; text-align: center;">
+                                    <div style="width: 100%; height: 150px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px;">
+                                        <span style="color: #666;">Day 28</span>
+                                    </div>
+                                    <small style="color: #666;">今天</small>
+                                </div>
+                            </div>
+                            <button class="btn" style="background: #fff; color: #000; border: 1px solid #000;">
+                                + 记录今日照片
+                            </button>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>目标设置</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                    <span>目标体重</span>
+                                    <span style="color: #666;">60kg ></span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                    <span>每周目标</span>
+                                    <span style="color: #666;">-0.5kg ></span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                                    <span>运动频率</span>
+                                    <span style="color: #666;">4次/周 ></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>系统设置</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                    <span>消息通知</span>
+                                    <span style="color: #666;">已开启 ></span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee;">
+                                    <span>隐私设置</span>
+                                    <span style="color: #666;">></span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                                    <span>帮助与反馈</span>
+                                    <span style="color: #666;">></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-nav">
+                        <div class="nav-item">数据</div>
+                        <div class="nav-item">饮食</div>
+                        <div class="nav-item">运动</div>
+                        <div class="nav-item active">我的</div>
+                    </div>
+                </div>
+
+                <!-- 4.1 身材对比详情 -->
+                <div class="iphone-container">
+                    <div class="screen-content">
+                        <div class="nav-bar">
+                            <span style="font-size: 24px;">←</span>
+                            <span style="margin-left: 20px;">身材对比记录</span>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>28天变化</h3>
+                            <div style="display: flex; justify-content: space-around; margin: 15px 0; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px; font-weight: 600; color: #4CAF50;">-4.5</div>
+                                    <div style="color: #666;">体重(kg)</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px; font-weight: 600; color: #4CAF50;">-3.2</div>
+                                    <div style="color: #666;">体脂(%)</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 20px; font-weight: 600; color: #4CAF50;">-5</div>
+                                    <div style="color: #666;">腰围(cm)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>照片记录</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                    <div style="flex: 1;">
+                                        <div style="width: 100%; height: 200px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                            <span style="color: #666;">正面 Day 1</span>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div style="width: 100%; height: 200px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                            <span style="color: #666;">正面 Day 28</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                                    <div style="flex: 1;">
+                                        <div style="width: 100%; height: 200px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                            <span style="color: #666;">侧面 Day 1</span>
+                                        </div>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <div style="width: 100%; height: 200px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                            <span style="color: #666;">侧面 Day 28</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card">
+                            <h3>AI分析报告</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="background: #f9f9f9; border-radius: 8px; padding: 15px;">
+                                    <p style="color: #4CAF50; margin-bottom: 10px;">✓ 身材变化显著</p>
+                                    <ul style="color: #666; margin-left: 20px;">
+                                        <li>腰部线条更加紧致</li>
+                                        <li>手臂肌肉线条提升</li>
+                                        <li>体态姿势改善明显</li>
+                                    </ul>
+                                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                                        <p style="color: #666;">建议：</p>
+                                        <p style="color: #666; margin-top: 5px;">继续保持目前的训练强度，可以适当增加核心训练的比重</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4.2 目标设置弹窗 -->
+                <div class="iphone-container">
+                    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 80%; background: white; border-radius: 15px; padding: 20px;">
+                            <h3 style="margin-bottom: 20px;">设置减重目标</h3>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; margin-bottom: 5px;">目标体重 (kg)</label>
+                                <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" value="60">
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; margin-bottom: 5px;">每周目标 (kg)</label>
+                                <select style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                                    <option>-0.25kg</option>
+                                    <option selected>-0.5kg</option>
+                                    <option>-0.75kg</option>
+                                    <option>-1kg</option>
+                                </select>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; margin-bottom: 5px;">目标达成时间</label>
+                                <div style="color: #666;">预计 12 周</div>
+                            </div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn" style="background: #fff; color: #000; border: 1px solid #000;">取消</button>
+                                <button class="btn">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
