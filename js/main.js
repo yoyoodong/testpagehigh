@@ -73,6 +73,14 @@ function bindEventListeners() {
             showPage(targetPage);
         });
     });
+
+    // 返回按钮
+    const backButton = document.querySelector('.back-button');
+    if (backButton) {
+        backButton.addEventListener('click', () => {
+            window.history.back();
+        });
+    }
 }
 
 /**
@@ -187,4 +195,21 @@ function pageTransition(pageId, direction = 'right') {
         targetPage.classList.remove(`animate__slideIn${direction}`);
         currentPage = pageId;
     }, 300);
+}
+
+/**
+ * 检查是否在二级页面
+ * @returns {boolean} 是否在二级页面
+ */
+function isSubPage() {
+    return window.location.pathname.includes('/pages/');
+}
+
+/**
+ * 返回上一页
+ */
+function goBack() {
+    if (isSubPage()) {
+        window.history.back();
+    }
 } 
