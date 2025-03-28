@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据追踪 - AI健身助手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-100">
+    <!-- 体重记录页 -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 flex items-center">
+            <span class="w-2 h-6 bg-black mr-2"></span>
+            体重记录页
+        </h2>
+        <div class="max-w-[393px] h-[852px] mx-auto bg-white shadow-xl rounded-[40px] relative overflow-hidden">
+            <!-- 状态栏 -->
+            <div class="h-[44px] px-4 flex justify-between items-center text-sm">
+                <span>9:41</span>
+                <div class="flex gap-2">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- 导航栏 -->
+            <div class="h-[44px] bg-black text-white flex items-center px-4">
+                <i class="fas fa-arrow-left mr-4"></i>
+                <span class="text-lg font-semibold">体重记录</span>
+            </div>
+
+            <!-- 体重记录内容 -->
+            <div class="h-[calc(100%-88px)] overflow-y-auto p-4">
+                <!-- 体重趋势图 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <div class="h-48 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-gray-400">体重变化趋势图</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="text-sm text-gray-600">起始体重</div>
+                            <div class="text-lg font-semibold">70.0 kg</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-600">当前体重</div>
+                            <div class="text-lg font-semibold text-green-600">65.5 kg</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-600">目标体重</div>
+                            <div class="text-lg font-semibold">60.0 kg</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 记录列表 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">历史记录</h3>
+                        <button class="px-4 py-2 bg-black text-white rounded-lg text-sm">
+                            + 记录
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- 记录项 -->
+                        <div class="flex justify-between items-center py-3 border-b">
+                            <div>
+                                <div class="font-medium">65.5 kg</div>
+                                <div class="text-sm text-gray-600">2024-03-19 08:30</div>
+                            </div>
+                            <div class="text-green-600">-0.2 kg</div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center py-3 border-b">
+                            <div>
+                                <div class="font-medium">65.7 kg</div>
+                                <div class="text-sm text-gray-600">2024-03-18 08:30</div>
+                            </div>
+                            <div class="text-red-600">+0.1 kg</div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center py-3">
+                            <div>
+                                <div class="font-medium">65.6 kg</div>
+                                <div class="text-sm text-gray-600">2024-03-17 08:30</div>
+                            </div>
+                            <div class="text-green-600">-0.3 kg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 体脂率记录页 -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 flex items-center">
+            <span class="w-2 h-6 bg-black mr-2"></span>
+            体脂率记录页
+        </h2>
+        <div class="max-w-[393px] h-[852px] mx-auto bg-white shadow-xl rounded-[40px] relative overflow-hidden">
+            <!-- 状态栏 -->
+            <div class="h-[44px] px-4 flex justify-between items-center text-sm">
+                <span>9:41</span>
+                <div class="flex gap-2">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- 导航栏 -->
+            <div class="h-[44px] bg-black text-white flex items-center px-4">
+                <i class="fas fa-arrow-left mr-4"></i>
+                <span class="text-lg font-semibold">体脂率记录</span>
+            </div>
+
+            <!-- 体脂率记录内容 -->
+            <div class="h-[calc(100%-88px)] overflow-y-auto p-4">
+                <!-- 体脂率趋势图 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <div class="h-48 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-gray-400">体脂率变化趋势图</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>
+                            <div class="text-sm text-gray-600">起始体脂率</div>
+                            <div class="text-lg font-semibold">28.5%</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-600">当前体脂率</div>
+                            <div class="text-lg font-semibold text-green-600">24.8%</div>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-600">目标体脂率</div>
+                            <div class="text-lg font-semibold">20.0%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 记录列表 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">历史记录</h3>
+                        <button class="px-4 py-2 bg-black text-white rounded-lg text-sm">
+                            + 记录
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- 记录项 -->
+                        <div class="flex justify-between items-center py-3 border-b">
+                            <div>
+                                <div class="font-medium">24.8%</div>
+                                <div class="text-sm text-gray-600">2024-03-19 08:30</div>
+                            </div>
+                            <div class="text-green-600">-0.2%</div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center py-3 border-b">
+                            <div>
+                                <div class="font-medium">25.0%</div>
+                                <div class="text-sm text-gray-600">2024-03-18 08:30</div>
+                            </div>
+                            <div class="text-green-600">-0.3%</div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center py-3">
+                            <div>
+                                <div class="font-medium">25.3%</div>
+                                <div class="text-sm text-gray-600">2024-03-17 08:30</div>
+                            </div>
+                            <div class="text-green-600">-0.4%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 运动记录页 -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 flex items-center">
+            <span class="w-2 h-6 bg-black mr-2"></span>
+            运动记录页
+        </h2>
+        <div class="max-w-[393px] h-[852px] mx-auto bg-white shadow-xl rounded-[40px] relative overflow-hidden">
+            <!-- 状态栏 -->
+            <div class="h-[44px] px-4 flex justify-between items-center text-sm">
+                <span>9:41</span>
+                <div class="flex gap-2">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- 导航栏 -->
+            <div class="h-[44px] bg-black text-white flex items-center px-4">
+                <i class="fas fa-arrow-left mr-4"></i>
+                <span class="text-lg font-semibold">运动记录</span>
+            </div>
+
+            <!-- 运动记录内容 -->
+            <div class="h-[calc(100%-88px)] overflow-y-auto p-4">
+                <!-- 本周运动统计 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">本周运动统计</h3>
+                    <div class="flex justify-between">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">3</div>
+                            <div class="text-sm text-gray-600">运动次数</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">120</div>
+                            <div class="text-sm text-gray-600">运动时长(分)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">840</div>
+                            <div class="text-sm text-gray-600">消耗热量(kcal)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 运动记录列表 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">历史记录</h3>
+                        <button class="px-4 py-2 bg-black text-white rounded-lg text-sm">
+                            + 记录
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- 记录项 -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <div class="font-medium">HIIT训练</div>
+                                    <div class="text-sm text-gray-600">45分钟</div>
+                                </div>
+                                <div class="text-green-600">320 kcal</div>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <i class="fas fa-clock mr-1"></i>
+                                2024-03-19 18:30
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <div class="font-medium">力量训练</div>
+                                    <div class="text-sm text-gray-600">60分钟</div>
+                                </div>
+                                <div class="text-green-600">280 kcal</div>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <i class="fas fa-clock mr-1"></i>
+                                2024-03-18 19:00
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <div class="font-medium">有氧训练</div>
+                                    <div class="text-sm text-gray-600">30分钟</div>
+                                </div>
+                                <div class="text-green-600">240 kcal</div>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <i class="fas fa-clock mr-1"></i>
+                                2024-03-17 17:30
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 饮食记录页 -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-4 flex items-center">
+            <span class="w-2 h-6 bg-black mr-2"></span>
+            饮食记录页
+        </h2>
+        <div class="max-w-[393px] h-[852px] mx-auto bg-white shadow-xl rounded-[40px] relative overflow-hidden">
+            <!-- 状态栏 -->
+            <div class="h-[44px] px-4 flex justify-between items-center text-sm">
+                <span>9:41</span>
+                <div class="flex gap-2">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- 导航栏 -->
+            <div class="h-[44px] bg-black text-white flex items-center px-4">
+                <i class="fas fa-arrow-left mr-4"></i>
+                <span class="text-lg font-semibold">饮食记录</span>
+            </div>
+
+            <!-- 饮食记录内容 -->
+            <div class="h-[calc(100%-88px)] overflow-y-auto p-4">
+                <!-- 今日摄入统计 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm mb-4">
+                    <h3 class="text-lg font-semibold mb-4">今日摄入统计</h3>
+                    <div class="flex justify-between">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">1280</div>
+                            <div class="text-sm text-gray-600">总热量(kcal)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">65</div>
+                            <div class="text-sm text-gray-600">蛋白质(g)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">150</div>
+                            <div class="text-sm text-gray-600">碳水(g)</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-green-600">40</div>
+                            <div class="text-sm text-gray-600">脂肪(g)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 饮食记录列表 -->
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">今日记录</h3>
+                        <button class="px-4 py-2 bg-black text-white rounded-lg text-sm">
+                            + 记录
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <!-- 早餐 -->
+                        <div>
+                            <h4 class="font-medium mb-2">早餐</h4>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-lg mr-3"></div>
+                                    <div>
+                                        <div class="font-medium">全麦面包</div>
+                                        <div class="text-sm text-gray-600">320 kcal</div>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-600">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    08:30
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 午餐 -->
+                        <div>
+                            <h4 class="font-medium mb-2">午餐</h4>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-lg mr-3"></div>
+                                    <div>
+                                        <div class="font-medium">炒面</div>
+                                        <div class="text-sm text-gray-600">580 kcal</div>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-600">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    12:30
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 晚餐 -->
+                        <div>
+                            <h4 class="font-medium mb-2">晚餐</h4>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center mb-2">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-lg mr-3"></div>
+                                    <div>
+                                        <div class="font-medium">鸡胸肉沙拉</div>
+                                        <div class="text-sm text-gray-600">380 kcal</div>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-gray-600">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    19:00
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

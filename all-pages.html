@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI健身助手 - 所有页面展示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .page-container {
+            display: inline-block;
+            margin: 20px;
+            vertical-align: top;
+        }
+        .module-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4CAF50;
+        }
+        .page-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            color: #333;
+        }
+        .iphone-container {
+            width: 393px;
+            height: 852px;
+            background: white;
+            border-radius: 40px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 2px solid #000;
+        }
+        .iphone-notch {
+            width: 120px;
+            height: 35px;
+            background: #000;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+        }
+        .screen-content {
+            padding: 50px 20px 80px;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .status-bar {
+            height: 44px;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+        }
+        .nav-bar {
+            height: 44px;
+            background: #000;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .nav-item {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .nav-item.active {
+            color: #4CAF50;
+        }
+        .data-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    <h1 class="text-3xl font-bold text-center mb-8">AI健身助手 - 所有页面展示</h1>
+
+    <!-- 0. 启动页模块 -->
+    <div class="module-title">0. 启动页模块</div>
+    <div>
+        <!-- 0.1 品牌启动页 -->
+        <div class="page-container">
+            <div class="page-title">品牌启动页</div>
+            <div class="iphone-container">
+                <div class="screen-content" style="background: #000; margin: -50px -20px -80px; height: 852px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div style="text-align: center; color: white;">
+                        <div style="font-size: 36px; font-weight: 600; margin-bottom: 10px;">AI健身助手</div>
+                        <div style="font-size: 16px; color: #888;">科学减重 · 健康生活</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 0.2 信息采集页 -->
+        <div class="page-container">
+            <div class="page-title">信息采集页</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">基础信息</div>
+                    <div style="padding: 20px 0;">
+                        <h2 style="text-align: center; margin-bottom: 30px;">开启健康生活</h2>
+                        <div class="data-card">
+                            <h3>基本信息</h3>
+                            <div style="margin: 15px 0;">
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 5px;">性别</label>
+                                    <div style="display: flex; gap: 10px;">
+                                        <button class="btn" style="margin: 0; background: #000;">女</button>
+                                        <button class="btn" style="margin: 0; background: #fff; color: #000; border: 1px solid #000;">男</button>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 5px;">年龄</label>
+                                    <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入年龄">
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 5px;">身高 (cm)</label>
+                                    <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入身高">
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <label style="display: block; margin-bottom: 5px;">体重 (kg)</label>
+                                    <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入体重">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 0.3 AI分析页 -->
+        <div class="page-container">
+            <div class="page-title">AI分析页</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">AI健康分析</div>
+                    <div style="padding: 20px 0;">
+                        <div class="data-card" style="text-align: center; padding: 30px 15px;">
+                            <div style="width: 120px; height: 120px; margin: 0 auto 20px; border-radius: 60px; border: 2px solid #4CAF50; display: flex; align-items: center; justify-content: center;">
+                                <div style="font-size: 24px;">分析中</div>
+                            </div>
+                            <p style="color: #666;">正在为您生成个性化健康方案</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. 数据追踪模块 -->
+    <div class="module-title">1. 数据追踪模块</div>
+    <div>
+        <!-- 1.0 主数据页 -->
+        <div class="page-container">
+            <div class="page-title">主数据页</div>
+            <div class="iphone-container">
+                <div class="iphone-notch"></div>
+                <div class="screen-content">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <span>📊</span>
+                    </div>
+                    <div class="nav-bar">目标追踪</div>
+                    <div class="data-card">
+                        <div style="text-align: center; padding: 20px 0;">
+                            <h2 style="font-size: 28px; margin-bottom: 5px;">目标减重10kg</h2>
+                            <p style="color: #666;">已完成45% · 剩余42天</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item active">数据</div>
+                    <div class="nav-item">饮食</div>
+                    <div class="nav-item">运动</div>
+                    <div class="nav-item">我的</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.1 身体数据详情页 -->
+        <div class="page-container">
+            <div class="page-title">身体数据详情页</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">
+                        <span style="font-size: 24px;">←</span>
+                        <span style="margin-left: 20px;">身体数据</span>
+                    </div>
+                    <div class="data-card">
+                        <h3>数据记录</h3>
+                        <div style="margin: 15px 0;">
+                            <button class="btn" style="background: #fff; color: #000; border: 1px solid #000;">
+                                记录今日数据
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.2 数据录入弹窗 -->
+        <div class="page-container">
+            <div class="page-title">数据录入弹窗</div>
+            <div class="iphone-container">
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 80%; background: white; border-radius: 15px; padding: 20px;">
+                        <h3 style="margin-bottom: 20px;">记录身体数据</h3>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 5px;">体重 (kg)</label>
+                            <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" placeholder="请输入体重">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.3 指标详情页面 -->
+        <div class="page-container">
+            <div class="page-title">指标详情页面</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">
+                        <span style="font-size: 24px;">←</span>
+                        <span style="margin-left: 20px;">指标详情</span>
+                    </div>
+                    <div class="data-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>体重变化</h3>
+                            <select style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                                <option>近7天</option>
+                                <option selected>近30天</option>
+                                <option>近90天</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 饮食管理模块 -->
+    <div class="module-title">2. 饮食管理模块</div>
+    <div>
+        <!-- 2.0 主饮食页 -->
+        <div class="page-container">
+            <div class="page-title">主饮食页</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">饮食管理</div>
+                    <div class="data-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>今日摄入</h3>
+                            <span style="color: #666;">1280/1800 kcal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item">数据</div>
+                    <div class="nav-item active">饮食</div>
+                    <div class="nav-item">运动</div>
+                    <div class="nav-item">我的</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.1 AI食物识别结果 -->
+        <div class="page-container">
+            <div class="page-title">AI食物识别结果</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">
+                        <span style="font-size: 24px;">←</span>
+                        <span style="margin-left: 20px;">识别结果</span>
+                    </div>
+                    <div class="data-card">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <div style="width: 100%; height: 150px; border: 2px dashed #666; display: flex; align-items: center; justify-content: center; margin: 10px 0;">
+                                已拍摄的食物图片
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.2 饮食记录详情 -->
+        <div class="page-container">
+            <div class="page-title">饮食记录详情</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">
+                        <span style="font-size: 24px;">←</span>
+                        <span style="margin-left: 20px;">今日饮食记录</span>
+                    </div>
+                    <div class="data-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>营养摄入进度</h3>
+                            <span style="color: #666;">1280/1800 kcal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.3 食物搜索页面 -->
+        <div class="page-container">
+            <div class="page-title">食物搜索页面</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">
+                        <span style="font-size: 24px;">←</span>
+                        <span style="margin-left: 20px;">添加食物</span>
+                    </div>
+                    <div style="padding: 15px;">
+                        <div style="position: relative; margin-bottom: 20px;">
+                            <input type="search" placeholder="搜索食物" 
+                                style="width: 100%; padding: 12px 40px 12px 12px; border-radius: 8px; border: 1px solid #ddd;">
+                            <span style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%);">🔍</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 运动训练模块 -->
+    <div class="module-title">3. 运动训练模块</div>
+    <div>
+        <!-- 3.0 主运动页 -->
+        <div class="page-container">
+            <div class="page-title">主运动页</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">智能训练</div>
+                    <div class="data-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>今日训练建议</h3>
+                            <span style="color: #666;">中等强度</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item">数据</div>
+                    <div class="nav-item">饮食</div>
+                    <div class="nav-item active">运动</div>
+                    <div class="nav-item">我的</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.1 AI动作纠正 -->
+        <div class="page-container">
+            <div class="page-title">AI动作纠正</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">AI动作纠正</div>
+                    <div class="data-card">
+                        <div style="width: 100%; height: 200px; border: 2px dashed #666; display: flex; align-items: center; justify-content: center; margin: 10px 0;">
+                            实时动作识别画面
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.2 训练计划详情 -->
+        <div class="page-container">
+            <div class="page-title">训练计划详情</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">
+                        <span style="font-size: 24px;">←</span>
+                        <span style="margin-left: 20px;">HIIT训练计划</span>
+                    </div>
+                    <div class="data-card">
+                        <h3>训练概览</h3>
+                        <div style="margin: 10px 0;">
+                            <p>训练时长: 45分钟</p>
+                            <p>难度等级: 中等</p>
+                            <p>预计消耗: 350kcal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.3 训练完成总结页 -->
+        <div class="page-container">
+            <div class="page-title">训练完成总结页</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">训练总结</div>
+                    <div class="data-card" style="text-align: center; padding: 30px 15px;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">🎉 训练完成</div>
+                        <div style="font-size: 36px; font-weight: 600; color: #4CAF50;">45:00</div>
+                        <p style="color: #666;">训练时长</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.4 动作教学详情页 -->
+        <div class="page-container">
+            <div class="page-title">动作教学详情页</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">
+                        <span style="font-size: 24px;">←</span>
+                        <span style="margin-left: 20px;">深蹲教学</span>
+                    </div>
+                    <div class="data-card">
+                        <div style="width: 100%; height: 200px; background: #f5f5f5; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            动作示范视频
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. 个人中心模块 -->
+    <div class="module-title">4. 个人中心模块</div>
+    <div>
+        <!-- 4.0 个人中心主页 -->
+        <div class="page-container">
+            <div class="page-title">个人中心主页</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">个人中心</div>
+                    <div class="data-card">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 80px; height: 80px; background: #eee; border-radius: 40px; margin-right: 15px;"></div>
+                            <div>
+                                <h3>张三</h3>
+                                <p style="color: #666;">减重进行中 · 第28天</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-item">数据</div>
+                    <div class="nav-item">饮食</div>
+                    <div class="nav-item">运动</div>
+                    <div class="nav-item active">我的</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.1 身材对比详情 -->
+        <div class="page-container">
+            <div class="page-title">身材对比详情</div>
+            <div class="iphone-container">
+                <div class="screen-content">
+                    <div class="nav-bar">
+                        <span style="font-size: 24px;">←</span>
+                        <span style="margin-left: 20px;">身材对比记录</span>
+                    </div>
+                    <div class="data-card">
+                        <h3>28天变化</h3>
+                        <div style="display: flex; justify-content: space-around; margin: 15px 0; padding: 15px; background: #f9f9f9; border-radius: 8px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 20px; font-weight: 600; color: #4CAF50;">-4.5</div>
+                                <div style="color: #666;">体重(kg)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.2 目标设置弹窗 -->
+        <div class="page-container">
+            <div class="page-title">目标设置弹窗</div>
+            <div class="iphone-container">
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 80%; background: white; border-radius: 15px; padding: 20px;">
+                        <h3 style="margin-bottom: 20px;">设置减重目标</h3>
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; margin-bottom: 5px;">目标体重 (kg)</label>
+                            <input type="number" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" value="60">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
